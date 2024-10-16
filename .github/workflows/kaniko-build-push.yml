@@ -15,7 +15,7 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
- 
+
       - name: Copy environment files and SSH keys
         run: |
           echo "Start building App"
@@ -31,7 +31,6 @@ jobs:
           dockerfile: Dockerfile
           context: .
           image: cr.selcloud.ru/hootregistry/test-front:v0.0.1
-          destination: cr.selcloud.ru/hootregistry/test-front:v0.0.1
           credentials: |
             {
               "docker_login": "${{ secrets.DOCKER_USERNAME }}",
