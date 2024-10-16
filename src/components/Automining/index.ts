@@ -1,0 +1,1 @@
+export { Automining } from './Automining';

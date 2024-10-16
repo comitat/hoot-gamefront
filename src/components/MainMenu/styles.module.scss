@@ -1,0 +1,61 @@
+@import '/src/variables';
+
+.navMain {
+    position: fixed;
+    bottom: 0;
+    left: $body-padding;
+    right: $body-padding;
+    padding-bottom: $body-padding;
+    background-color: $body-bg;
+    border-radius: $block-radius $block-radius 0 0;
+}
+
+.navItemsWrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 1rem 0;
+    background-color: #352957;
+    border-radius: $block-radius;
+}
+
+.navItem {
+    margin: 0;
+    height: 4rem;
+    box-sizing: border-box;
+}
+
+.navLinkActive,
+.navLink {
+    font-size: 0.625rem;
+    color: #fff;
+}
+
+.iconImage {
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: 0.5rem auto 0;
+}
+
+.iconImageOn {
+    display: none;
+    height: 2rem;
+    width: 2rem;
+    margin: 4px auto 0;
+}
+
+.navLinkActive {
+    font-weight: bold;
+
+    .iconImageOn {
+        display: block;
+    }
+}
+
+.icon {
+    height: 2rem;
+    width: 2rem;
+    margin: auto;
+    overflow: hidden;
+}
+

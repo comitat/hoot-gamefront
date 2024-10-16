@@ -1,0 +1,36 @@
+.pageTitle {
+    display: flex;
+}
+
+.title {
+    flex-grow: 1;
+    margin-top: 0.5rem;
+    margin-left: 0.125rem;
+    font-size: 1rem;
+    color: #E3E9EC;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.backLabel {
+    display: flex;
+    flex-grow: 1;
+}
+
+.backImage {
+    display: block;
+    margin-top: 0.125rem;
+    height: 2rem;
+    width: 2rem;
+}
+
+.icon {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.iconImage {
+    display: block;
+    height: 1.75rem;
+    width: 1.75rem;
+}

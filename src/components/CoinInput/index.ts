@@ -1,0 +1,1 @@
+export { CoinInput } from './CoinInput';

@@ -1,0 +1,1 @@
+export { CoinsBanner } from './CoinsBanner';

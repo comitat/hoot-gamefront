@@ -1,0 +1,16 @@
+@import '/src/variables';
+
+.popcorn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    // background: rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: $fade-out-animation;
+    color: $neon-green;
+    font-size: 0.875rem;
+    font-family: "Fira Code", monospace;
+}

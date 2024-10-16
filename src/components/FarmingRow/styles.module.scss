@@ -1,0 +1,47 @@
+@import '/src/variables';
+
+.balanceItem {
+    display: flex;
+    padding: 0.75rem 0;
+}
+
+.iconCoin {
+    height: 2rem;
+    width: 2rem;
+}
+
+.iconInButton {
+    height: 1rem;
+    width: 1rem;
+}
+
+.currency {
+    padding: 0 0 0 0.5rem;
+    font-size: 0.75rem;
+}
+
+.currencyVal {
+    font-size: 0.865rem;
+}
+
+.eqValue {
+    font-size: 0.625rem;
+    color: #898b8d;
+}
+
+.balanceValueConvert {
+    margin: 0 auto;
+    padding-right: 0.5rem;
+    font-size: 0.865rem;
+    color: $neon-green;
+}
+
+.subValue {
+    font-size: 0.625rem;
+    color: $neon-green;
+}
+
+.incomeComment {
+    margin-left: 0.25rem;
+    color: $neutral-gray;
+}

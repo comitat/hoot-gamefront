@@ -1,0 +1,36 @@
+@import '/src/variables';
+
+
+.option {
+    display: flex;
+    padding: 0.25rem 0.5rem;
+}
+
+.optionIco {
+    display: block;
+    height: 2rem;
+    width: 2rem;
+}
+
+.optionTitle {
+    flex-grow: 1;
+    line-height: 2rem;
+    padding-left: 0.5rem;
+}
+
+.optionLabel {
+    
+    display: flex;
+}
+
+.optionLabelName {
+    line-height: 2rem;
+    padding-right: 0.5rem;
+    text-align: right;
+    color: $neutral-gray;
+}
+
+.iconArrow {
+    height: 2rem;
+    width: 2rem;
+}

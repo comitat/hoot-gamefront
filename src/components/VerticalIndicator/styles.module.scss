@@ -1,0 +1,33 @@
+@import '/src/variables';
+
+.indicatorWrap {
+    display: flex;
+    flex-direction: column;
+    height: 18rem;
+    width: 1.25rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: $min-radius;
+}
+
+.indicator {
+    margin-top: auto;
+    background-color: $neon-green;
+    border-radius: $min-radius;
+    min-height: 1px;
+}
+
+.green {
+    background-color: $neon-green;
+}
+
+.blue {
+    background-color: $blue;
+}
+
+.violet {
+    background-color: $violet;
+}
+
+.red {
+    background-color: $red;
+}
