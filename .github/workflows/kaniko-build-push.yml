@@ -28,9 +28,9 @@ jobs:
       - name: Build and Push Docker Image with Kaniko
         uses: int128/kaniko-action@v1
         with:
-          dockerfile: Dockerfile
           context: .
-          image: cr.selcloud.ru/hootregistry/test-front:v0.0.1
+          file: Dockerfile
+          tags: cr.selcloud.ru/hootregistry/test-front:v0.0.1
           credentials: |
             {
               "docker_login": "${{ secrets.DOCKER_USERNAME }}",
