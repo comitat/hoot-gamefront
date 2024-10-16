@@ -1,4 +1,3 @@
-
 name: Build and Push with Kaniko
 
 on:
@@ -17,6 +16,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         
+      - name: Copy environment files and SSH keys
+        run: |
+          echo "Start building App"
+          cp -a ${{ secrets.ENV_FILE_STAGE }} .env || true
+          echo "${{ secrets.ID_RSA }}" > id_rsa
+          chmod 600 id_rsa
+          echo "${{ secrets.ID_RSA_PUB }}" > id_rsa.pub
+          chmod 644 id_rsa.pub
+
       - name: Build and Push Docker Image with Kaniko
         uses: int128/kaniko-action@v1
         with:
@@ -25,7 +33,11 @@ jobs:
           image: cr.selcloud.ru/hootregistry/test-front:v0.0.1 
           credentials: |
             {
-              docker_login: ${{ secrets.DOCKER_USERNAME }},
-              docker_token: ${{ secrets.DOCKER_TOKEN }}
+              "docker_login": "${{ secrets.DOCKER_USERNAME }}",
+              "docker_token": "${{ secrets.DOCKER_TOKEN }}"
             }
 
+      - name: Clean up SSH keys
+        run: |
+          rm -f id_rsa id_rsa.pub
+          echo "Application successfully built"
