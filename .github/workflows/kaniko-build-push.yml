@@ -37,7 +37,7 @@ jobs:
               "docker_token": "${{ secrets.DOCKER_TOKEN }}"
             }
           push: true
-          destination: cr.selcloud.ru/hootregistry
+          destination: cr.selcloud.ru/hootregistry/test-front:v0.0.1 
 
       - name: Clean up SSH keys
         run: |
