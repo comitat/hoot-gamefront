@@ -25,18 +25,22 @@ jobs:
           echo "${{ secrets.ID_RSA_PUB }}" > id_rsa.pub
           chmod 644 id_rsa.pub
 
+      - name: Docker Login
+        run: |
+          echo "${{ secrets.DOCKER_TOKEN }}" | docker login cr.selcloud.ru -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       - name: Build and Push Docker Image with Kaniko
         uses: int128/kaniko-action@v1
         with:
           context: .
           file: Dockerfile
           tags: cr.selcloud.ru/hootregistry/test-front:v0.0.1
+          push: true
           credentials: |
             {
               "docker_login": "${{ secrets.DOCKER_USERNAME }}",
               "docker_token": "${{ secrets.DOCKER_TOKEN }}"
             }
-          push: true
 
       - name: Clean up SSH keys
         run: |
