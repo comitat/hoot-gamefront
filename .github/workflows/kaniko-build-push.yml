@@ -20,7 +20,12 @@ jobs:
       - name: Copy environment files and SSH keys
         run: |
           echo "Start building App"
-          cp -a ${{ secrets.ENV_FILE_BACK }} .env
+          if [ -f "${{ secrets.ENV_FILE_BACK }}" ]; then
+            cp -a "${{ secrets.ENV_FILE_BACK }}" .env
+          else
+            echo "Warning: Environment file not found: ${{ secrets.ENV_FILE_BACK }}"
+            exit 1
+          fi
           echo "${{ secrets.ID_RSA }}" > id_rsa
           chmod 600 id_rsa
           echo "${{ secrets.ID_RSA_PUB }}" > id_rsa.pub
