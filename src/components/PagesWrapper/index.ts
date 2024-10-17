@@ -1,1 +1,0 @@
-export { PagesWrapper } from './PagesWrapper';

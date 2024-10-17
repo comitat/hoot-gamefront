@@ -1,22 +1,43 @@
-FROM node:20.15.1-alpine AS base
-RUN apk update && \
-    apk upgrade && \
-    apk add  --no-cache bash git openssh
-WORKDIR /hood-front
-COPY id_rsa /root/.ssh/id_rsa
-#COPY id_rsa.pub /root/.ssh/id_rsa.pub
+# From:
+# https://github.com/RomainLanz/romainlanz.com/blob/main/Dockerfile
+FROM node:21-alpine3.19 AS base
 
+RUN apk --no-cache add curl git openssh py3-pip make g++ python3
+RUN npm install pm2 -g
+
+COPY id_rsa /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa && \
     ssh-keyscan git.bsn.si >> /root/.ssh/known_hosts
 
-COPY package*.json ./
-RUN NODE_OPTIONS="--max-old-space-size=2048" npm install
-COPY . /hood-front
-RUN npm run build
+# All deps stage
+FROM base AS deps
+WORKDIR /app
+ADD package.json package-lock.json ./
+RUN npm ci
 
-FROM nginx:alpine
-RUN rm /etc/nginx/conf.d/default.conf
-COPY static.conf /etc/nginx/conf.d
-COPY --from=base /hood-front/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Production only deps stage
+FROM base AS production-deps
+WORKDIR /app
+ADD package.json package-lock.json ./
+RUN npm ci --omit=dev
+RUN wget https://gobinaries.com/tj/node-prune --output-document - | /bin/sh && node-prune
+
+# Build stage
+FROM base AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules /app/node_modules
+ADD . .
+RUN node ace build --ignore-ts-errors
+
+# Production stage
+FROM base
+ENV NODE_ENV=production
+WORKDIR /app
+# only if you use sqlite3
+RUN mkdir tmp && touch ./tmp/db.sqlite3
+COPY --from=production-deps /app/node_modules /app/node_modules
+COPY --from=build /app/build /app
+COPY ecosystem.config.cjs /app/
+RUN rm -rf /root/.ssh/
+EXPOSE 3333
+CMD ["pm2-runtime", "start", "ecosystem.config.cjs"]

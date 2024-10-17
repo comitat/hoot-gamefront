@@ -1,39 +1,192 @@
-# Game Front
+# Local run
 
-# Adding web app to telegram
+```bash
+nvm use 20.14
+npm i
+node ace migration:run
+npm run dev
+```
 
-Open BotFather
-Write command /newBot. Give name and username to your bot
-Type command /mybots. Click on your new created one -> Bot settings -> Menu button and send your deployed web app url
-That’s it. Now you have your own Telegram bot with Mini App
+Reset DB
+  
+```bash
+node ace migration:reset
+```  
 
-# React + TypeScript + Vite
+# Register new user 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+POST /user/register
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
+```json
+{
+  "initData": {
+    "query_id": "AAFWIa8LAAAAAFYhrwsNbQkz",
+    "user": {
+      "id": 196026710,
+      "first_name": "Igor",
+      "last_name": "Belyaletdinov",
+      "username": "igorbel",
+      "language_code": "en",
+      "allows_write_to_pm": true
+    },
+    "auth_date": "1723566344",
+    "hash": "c9c00d5b1f5aaa20ce4af0e304fc9b928750fa6da81c4453639182509ac2068d"
+  }
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Response sample 
+
+```json
+{
+  "token": {
+    "type": "bearer",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcyMzU2NzAxN30.7wzDNwxrNWJkELQg5iaNrnd4jPlMbMDcElKcKnI84SU",
+    "expiresIn": ""
+  },
+  "tgId": 196026710,
+  "username": "igorbel",
+  "firstName": "Igor",
+  "lastName": "Belyaletdinov",
+  "languageCode": "en",
+  "createdAt": "2024-08-13T16:36:57.179+00:00",
+  "updatedAt": "2024-08-13T16:36:57.179+00:00",
+  "id": 1
+}
+```
+
+# Get current user 
+
+GET /me
+
+# Initial init
+
+POST /mining/init
+
+```json
+{
+  "timestamp": "<current timestamp in ms>"
+}
+```
+
+# Send taps 
+
+POST /mining/tap
+
+```json
+{
+  "timestamp": "<current timestamp in ms>",
+  "count": 200
+}
+```
+
+# Start auto mining
+
+POST /mining/auto:start
+
+```json
+{
+  "timestamp": "<current timestamp in ms>",
+  "duration": 3
+}
+```
+
+# Stop auto mining
+
+POST /mining/auto:stop
+
+```json
+{
+  "timestamp": "<current timestamp in ms>"
+}
+```
+
+# Upgrade level
+
+POST /upgrade/level
+
+```json
+{
+  "level": 2
+}
+```
+
+# Upgrade energy
+
+POST /upgrade/energy
+
+```json
+{
+  "energy": 200,
+  "timestamp": "<current timestamp in ms>"
+}
+```
+
+# Farming
+## Create
+
+POST /farming/create
+
+```json
+{
+  "token": "HOOT",
+  "amount": 100,
+  "eventSlug": "start-farming-50-hoot | start-farming-500-hoot | daily-bonus"
+}
+```
+
+## Get all 
+
+POST /farming/get
+
+```json
+{
+  "isActive": true,
+  "isEnded": true
+}
+```
+or to get all
+```
+{
+}
+```
+
+## Stop
+
+GET /farming/stop/<uuid>
+
+## Status
+
+GET /farming/status/<uuid>
+
+# Events
+
+## Evaluate bonus for daily event
+
+
+
+GET /event/daily/eval
+
+## Claim energy bonus for daily event
+
+POST /event/daily/claim
+
+```json
+{
+  "timestamp": "<current timestamp in ms>"
+}
+```
+
+## Get all event statuses for user
+
+GET /event/statuses
+
+## Generate non-bounceable TON address
+
+POST /user/wallet/address/generate
+
+```json
+{
+  "pubKey": "<TON HEX address>"
+}
+```

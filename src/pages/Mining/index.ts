@@ -1,1 +1,0 @@
-export { Mining } from './Mining';

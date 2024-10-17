@@ -1,1 +1,0 @@
-export { VerticalIndicator } from './VerticalIndicator';

@@ -1,1 +1,0 @@
-export { Farming } from './Farming';

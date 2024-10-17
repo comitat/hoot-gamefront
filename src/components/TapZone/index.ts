@@ -1,1 +1,0 @@
-export { TapZone } from './TapZone';

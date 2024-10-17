@@ -1,1 +1,0 @@
-export { FarmingRow } from './FarmingRow';

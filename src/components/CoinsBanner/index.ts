@@ -1,1 +1,0 @@
-export { CoinsBanner } from './CoinsBanner';

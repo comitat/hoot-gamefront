@@ -1,1 +1,0 @@
-export { WalletControl } from './WalletControl';

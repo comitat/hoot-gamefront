@@ -1,1 +1,0 @@
-export { SubPageTitle } from './SubPageTitle';

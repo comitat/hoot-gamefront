@@ -1,1 +1,0 @@
-export { CoinInput } from './CoinInput';

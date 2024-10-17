@@ -19,7 +19,7 @@ jobs:
       - name: Copy environment files and SSH keys
         run: |
           echo "Start building App"
-          cp -a ${{ secrets.ENV_FILE_STAGE }} .env || true
+          cp -a ${{ secrets.ENV_FILE_BACK }} .env
           echo "${{ secrets.ID_RSA }}" > id_rsa
           chmod 600 id_rsa
           echo "${{ secrets.ID_RSA_PUB }}" > id_rsa.pub
@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: cr.selcloud.ru/hootregistry/test-front:v0.0.1
+          tags: cr.selcloud.ru/hootregistry/test-back:v0.0.1
           push: true
           credentials: |
             {
