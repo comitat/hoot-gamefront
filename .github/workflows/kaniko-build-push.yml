@@ -3,7 +3,8 @@ name: Build and Push with Kaniko
 on:
   push:
     branches:
-      - main 
+      - main
+      - back
 
 jobs:
   build:
